@@ -46,7 +46,7 @@ RUN bash $INST_SCRIPTS/chrome/install_chrome.sh  && rm -rf $INST_SCRIPTS/chrome/
 
 # Install xz and curl
 RUN apt update -y
-RUN apt install curl xz-Utils -y	
+RUN apt install curl xz-utils -y	
 
 # Install nix multi user installation
 RUN bash <(curl -L https://nixos.org/nix/install) --daemon --yes
