@@ -36,10 +36,6 @@ RUN bash $INST_SCRIPTS/tools/install_tools_deluxe.sh  && rm -rf $INST_SCRIPTS/to
 COPY ./src/ubuntu/install/misc $INST_SCRIPTS/misc/
 RUN bash $INST_SCRIPTS/misc/install_tools.sh && rm -rf $INST_SCRIPTS/misc/
 
-### Install Sublime Text
-COPY ./src/ubuntu/install/sublime_text $INST_SCRIPTS/sublime_text/
-RUN bash $INST_SCRIPTS/sublime_text/install_sublime_text.sh  && rm -rf $INST_SCRIPTS/sublime_text/
-
 ### Install Visual Studio Code
 COPY ./src/ubuntu/install/vs_code $INST_SCRIPTS/vs_code/
 RUN bash $INST_SCRIPTS/vs_code/install_vs_code.sh  && rm -rf $INST_SCRIPTS/vs_code/
@@ -49,11 +45,11 @@ COPY ./src/ubuntu/install/chrome $INST_SCRIPTS/chrome/
 RUN bash $INST_SCRIPTS/chrome/install_chrome.sh  && rm -rf $INST_SCRIPTS/chrome/
 
 # Install xz and curl
-RUN apt update
-RUN apt install curl xz-Utils
+RUN apt update -y
+RUN apt install curl xz-Utils -y	
 
 # Install nix multi user installation
-RUN bash <(curl -L https://nixos.org/nix/install) --daemon
+RUN bash <(curl -L https://nixos.org/nix/install) --daemon -y --autoconfirm
 
 ######### End Customizations ###########
 
