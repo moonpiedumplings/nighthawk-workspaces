@@ -51,7 +51,7 @@ RUN apt install curl xz-utils -y
 # Install nix multi user installation
 RUN curl -L https://nixos.org/nix/install -o nixinstall.sh
 RUN chmod +x nixinstall.sh
-RUN sh nixinstall.sh > /dev/null --daemon --yes
+RUN ./nixinstall.sh > /dev/null --daemon --yes
 
 ######### End Customizations ###########
 
