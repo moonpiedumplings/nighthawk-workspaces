@@ -44,17 +44,15 @@ RUN bash $INST_SCRIPTS/vs_code/install_vs_code.sh  && rm -rf $INST_SCRIPTS/vs_co
 COPY ./src/ubuntu/install/chrome $INST_SCRIPTS/chrome/
 RUN bash $INST_SCRIPTS/chrome/install_chrome.sh  && rm -rf $INST_SCRIPTS/chrome/
 
-# Install xz and curl
-RUN apt update -y
-RUN apt install curl xz-utils -y	
-
-# Install nix multi user installation
-RUN curl -L https://nixos.org/nix/install -o nixinstall.sh && chmod +x nixinstall.sh && ./nixinstall.sh > /dev/null --daemon --yes
-
 # Install nix multi user installation:
 
-
-
+RUN apt update -y && apt install -y curl xz-utils \
+  && curl -L https://nixos.org/nix/install -o nix-install.sh \
+  && chmod +x nix-install.sh \
+  && ./nix-install.sh --daemon --yes \
+  && rm nix-install.sh \
+  && apt autoremove -y && apt clean -y
+  
 ######### End Customizations ###########
 
 RUN chown 1000:0 $HOME
