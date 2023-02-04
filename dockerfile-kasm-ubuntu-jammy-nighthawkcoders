@@ -49,7 +49,7 @@ RUN apt update -y
 RUN apt install curl xz-utils -y	
 
 # Install nix multi user installation
-RUN bash <(curl -L https://nixos.org/nix/install) < /dev/null --daemon --yes
+RUN sh <(curl -L https://nixos.org/nix/install) < /dev/null --daemon --yes
 
 ######### End Customizations ###########
 
