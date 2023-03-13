@@ -1,6 +1,6 @@
-ARG BASE_TAG="develop"
-ARG BASE_IMAGE="core-ubuntu-jammy"
-FROM kasmweb/$BASE_IMAGE:$BASE_TAG
+ARG BASE_TAG="latest"
+ARG BASE_IMAGE="core-ubuntu-jammy-nighthawkcoders"
+FROM moonpiedumplings/$BASE_IMAGE:$BASE_TAG
 
 USER root
 
@@ -100,6 +100,10 @@ RUN bash $INST_SCRIPTS/gamepad_utils/install_gamepad_utils.sh  && rm -rf $INST_S
 
 #ADD ./src/common/scripts $STARTUPDIR
 RUN $STARTUPDIR/set_user_permission.sh $HOME
+
+# Nix daemon
+
+ENV NIX_REMOTE=daemon
 
 RUN chown 1000:0 $HOME
 
