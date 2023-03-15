@@ -98,7 +98,15 @@ RUN bash $INST_SCRIPTS/thunderbird/install_thunderbird.sh  && rm -rf $INST_SCRIP
 #COPY ./src/ubuntu/install/gamepad_utils $INST_SCRIPTS/gamepad_utils/
 # RUN bash $INST_SCRIPTS/gamepad_utils/install_gamepad_utils.sh  && rm -rf $INST_SCRIPTS/gamepad_utils/
 
-RUN apt update && apt install nix-bin -y
+#Install zotero
+RUN wget https://mirror.mwt.me/zotero/deb/zotero_6.0.23_amd64.deb && apt update && apt install ./zotero_6.0.23_amd64.deb && rm -rf /var/lib/apt/lists/* && rm zotero_6.0.23_amd64.deb
+
+#install musescore
+RUN add-apt-repository ppa:mscore-ubuntu/mscore3-stable && apt-get update && apt-get install musescore3 -y && rm -rf /var/lib/apt/lists/*
+
+#Install nix
+RUN apt update && apt install nix-bin -y && rm -rf /var/lib/apt/lists/*
+
 
 
 #ADD ./src/common/scripts $STARTUPDIR
