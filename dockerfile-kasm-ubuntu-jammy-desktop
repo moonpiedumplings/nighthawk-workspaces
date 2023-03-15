@@ -2,7 +2,6 @@ ARG BASE_TAG="develop"
 ARG BASE_IMAGE="core-ubuntu-jammy"
 FROM kasmweb/$BASE_IMAGE:$BASE_TAG
 
-
 USER root
 
 ENV HOME /home/kasm-default-profile
@@ -13,6 +12,7 @@ WORKDIR $HOME
 ENV DEBIAN_FRONTEND noninteractive
 ENV KASM_RX_HOME $STARTUPDIR/kasmrx
 ENV INST_SCRIPTS $STARTUPDIR/install
+
 
 ### Install Tools
 COPY ./src/ubuntu/install/tools $INST_SCRIPTS/tools/
@@ -54,17 +54,17 @@ RUN bash $INST_SCRIPTS/nextcloud/install_nextcloud.sh  && rm -rf $INST_SCRIPTS/n
 COPY ./src/ubuntu/install/remmina $INST_SCRIPTS/remmina/
 RUN bash $INST_SCRIPTS/remmina/install_remmina.sh  && rm -rf $INST_SCRIPTS/remmina/
 
-### Install Teams (broken right now, we don't need teams anyways)
-##COPY ./src/ubuntu/install/teams $INST_SCRIPTS/teams/
-##RUN bash $INST_SCRIPTS/teams/install_teams.sh  && rm -rf $INST_SCRIPTS/teams/
+### Install Teams
+COPY ./src/ubuntu/install/teams $INST_SCRIPTS/teams/
+RUN bash $INST_SCRIPTS/teams/install_teams.sh  && rm -rf $INST_SCRIPTS/teams/
 
 ### Install Only Office
 COPY ./src/ubuntu/install/only_office $INST_SCRIPTS/only_office/
 RUN bash $INST_SCRIPTS/only_office/install_only_office.sh  && rm -rf $INST_SCRIPTS/only_office/
 
-### Install Signal BROKEN, we don't need anyways.
-#COPY ./src/ubuntu/install/signal $INST_SCRIPTS/signal/
-#RUN bash $INST_SCRIPTS/signal/install_signal.sh  && rm -rf $INST_SCRIPTS/signal/
+### Install Signal
+COPY ./src/ubuntu/install/signal $INST_SCRIPTS/signal/
+RUN bash $INST_SCRIPTS/signal/install_signal.sh  && rm -rf $INST_SCRIPTS/signal/
 
 ### Install GIMP
 COPY ./src/ubuntu/install/gimp $INST_SCRIPTS/gimp/
@@ -98,10 +98,8 @@ RUN bash $INST_SCRIPTS/thunderbird/install_thunderbird.sh  && rm -rf $INST_SCRIP
 #COPY ./src/ubuntu/install/gamepad_utils $INST_SCRIPTS/gamepad_utils/
 # RUN bash $INST_SCRIPTS/gamepad_utils/install_gamepad_utils.sh  && rm -rf $INST_SCRIPTS/gamepad_utils/
 
-RUN apt update && apt install wget && wget https://hydra.nixos.org/build/210947346/download/2/nix && chmod +x nix && cp nix /bin/nix && ln -s /bin/nix /bin/nix-shell 
+RUN apt update && apt install nix-bin -y
 
-
-COPY 
 
 #ADD ./src/common/scripts $STARTUPDIR
 RUN $STARTUPDIR/set_user_permission.sh $HOME
