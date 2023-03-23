@@ -13,7 +13,7 @@ WORKDIR $HOME
 ENV DEBIAN_FRONTEND noninteractive
 ENV KASM_RX_HOME $STARTUPDIR/kasmrx
 ENV INST_SCRIPTS $STARTUPDIR/install
-
+ENV DONT_PROMPT_WSL_INSTALL "No_Prompt_please"
 
 ### Install Tools
 COPY ./src/opensuse/install/tools $INST_SCRIPTS/tools/
@@ -75,10 +75,6 @@ RUN bash $INST_SCRIPTS/telegram/install_telegram.sh  && rm -rf $INST_SCRIPTS/tel
 ### Install Thunderbird
 COPY ./src/ubuntu/install/thunderbird $INST_SCRIPTS/thunderbird/
 RUN bash $INST_SCRIPTS/thunderbird/install_thunderbird.sh  && rm -rf $INST_SCRIPTS/thunderbird/
-
-### Install Teams
-COPY ./src/opensuse/install/teams $INST_SCRIPTS/teams/
-RUN bash $INST_SCRIPTS/teams/install_teams.sh  && rm -rf $INST_SCRIPTS/teams/
 
 #ADD ./src/common/scripts $STARTUPDIR
 RUN $STARTUPDIR/set_user_permission.sh $HOME
