@@ -107,7 +107,9 @@ RUN add-apt-repository ppa:mscore-ubuntu/mscore3-stable && apt-get update && apt
 #Install nix
 RUN apt update && apt install nix-bin -y && rm -rf /var/lib/apt/lists/*
 
+# install podman
 
+RUN apt update && apt install podman podman-docker -y && rm -rf /var/lib/apt/lists/*
 
 #ADD ./src/common/scripts $STARTUPDIR
 RUN $STARTUPDIR/set_user_permission.sh $HOME
